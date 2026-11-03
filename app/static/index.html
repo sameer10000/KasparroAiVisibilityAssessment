@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kasparro AI Visibility Report</title>
+<style>
+  :root { --ink:#1d2433; --muted:#5d6779; --line:#e3e7ee; --bg:#f6f7f9; --card:#fff;
+          --green:#1f7a4d; --green-bg:#e6f4ec; --amber:#8a5a00; --amber-bg:#fdf3dc;
+          --red:#a32626; --red-bg:#fbe9e9; --grey:#4a5568; --grey-bg:#edf0f4; --blue:#2453a6; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color:var(--ink); background:var(--bg); }
+  header { background:var(--card); border-bottom:1px solid var(--line); padding:14px 28px; display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
+  header h1 { font-size:18px; margin:0; flex:1; }
+  .signin { display:flex; gap:8px; align-items:center; }
+  input, textarea, select { font:inherit; border:1px solid var(--line); border-radius:6px; padding:7px 10px; background:#fff; }
+  textarea { width:100%; min-height:70px; }
+  button { font:inherit; border:0; border-radius:6px; padding:8px 14px; cursor:pointer; background:var(--blue); color:#fff; }
+  button.secondary { background:var(--grey-bg); color:var(--ink); }
+  button.green { background:var(--green); } button.red { background:var(--red); }
+  button:disabled { opacity:.45; cursor:not-allowed; }
+  main { display:grid; grid-template-columns:260px 1fr; gap:24px; padding:24px 28px; max-width:1300px; margin:0 auto; }
+  aside h2, section h2 { font-size:13px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin:0 0 10px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px 18px; margin-bottom:14px; }
+  .report-item { cursor:pointer; } .report-item:hover { border-color:var(--blue); }
+  .report-item.active { border-color:var(--blue); box-shadow:0 0 0 1px var(--blue); }
+  .badge { display:inline-block; padding:2px 10px; border-radius:999px; font-size:12px; font-weight:600; }
+  .draft { background:var(--grey-bg); color:var(--grey); } .submitted { background:var(--amber-bg); color:var(--amber); }
+  .approved { background:var(--green-bg); color:var(--green); } .rejected { background:var(--red-bg); color:var(--red); }
+  .muted { color:var(--muted); font-size:13px; }
+  .banner { display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
+  .banner .big { font-size:20px; font-weight:600; }
+  table { border-collapse:collapse; width:100%; }
+  th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); }
+  th { font-size:13px; color:var(--muted); font-weight:600; }
+  td.num { font-variant-numeric:tabular-nums; }
+  .diag h3, .remedy h3 { margin:0 0 6px; font-size:16px; }
+  .label { font-size:12px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; margin-top:10px; }
+  blockquote { margin:8px 0; padding:8px 12px; border-left:3px solid var(--line); background:var(--bg); border-radius:0 6px 6px 0; }
+  blockquote .src { display:block; font-size:12px; color:var(--muted); margin-top:4px; }
+  details summary { cursor:pointer; color:var(--blue); font-size:14px; margin-top:8px; }
+  .grid2 { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px; margin-top:8px; }
+  .kv { background:var(--bg); border-radius:6px; padding:8px 10px; } .kv b { display:block; font-size:12px; color:var(--muted); }
+  .msg { padding:10px 14px; border-radius:8px; margin:10px 0; }
+  .msg.ok { background:var(--green-bg); color:var(--green); } .msg.err { background:var(--red-bg); color:var(--red); }
+  .msg.info { background:var(--grey-bg); color:var(--grey); }
+  .actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  .timeline div { padding:6px 0; border-bottom:1px dashed var(--line); }
+  .empty { text-align:center; padding:60px 20px; color:var(--muted); }
+  @media (max-width: 860px) { main { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Kasparro AI Visibility Report</h1>
+  <div class="signin" id="signin">
+    <input id="tokA" type="password" placeholder="Analyst token" size="22">
+    <input id="tokR" type="password" placeholder="Reviewer token" size="22">
+    <button onclick="saveTokens()">Save</button>
+  </div>
+  <div class="signin" id="demo" style="display:none">
+    <span class="muted">I am the:</span>
+    <select id="roleSelect" onchange="demoLogin(this.value)">
+      <option value="analyst">Analyst</option>
+      <option value="reviewer">Reviewer</option>
+    </select>
+    <span class="muted" title="DEMO_LOGIN=true in .env">(local demo login)</span>
+  </div>
+  <div class="signin" id="switcher" style="display:none">
+    <span class="muted">View as:</span>
+    <button id="btn-analyst" onclick="useRole('analyst')">Analyst</button>
+    <button id="btn-reviewer" onclick="useRole('reviewer')">Reviewer</button>
+    <button class="secondary" onclick="signOut()" title="Forget saved tokens">Forget tokens</button>
+  </div>
+  <div id="who" class="muted"></div>
+</header>
+
+<main>
+  <aside>
+    <h2>Reports</h2>
+    <div id="reports"><div class="card muted">Save your tokens to see reports.</div></div>
+    <div class="card muted">
+      <b>How this works</b><br>
+      1. The <b>analyst</b> checks the draft, edits notes and submits it.<br>
+      2. The <b>reviewer</b> approves or rejects it with a comment.<br>
+      3. Only an <b>approved</b> version can be exported.<br>
+      Any edit after submitting creates a new version that needs a new review.
+    </div>
+  </aside>
+
+  <div id="view"><div class="card empty">Paste the analyst and reviewer tokens from your <code>.env</code> file once (top right). After that, switch roles with one click.</div></div>
+</main>
+
+<script>
+const ERRORS = {
+  unauthenticated: "That token isn't recognised. Use ANALYST_TOKEN or REVIEWER_TOKEN from the .env file.",
+  wrong_role: "Your role can't do this. Analysts edit and submit; reviewers approve or reject.",
+  not_approved: "This version hasn't been approved yet, so it can't be exported.",
+  rejected: "This version was rejected, so it can't be exported. Edit it to create a new version, then submit again.",
+  stale_approval: "The latest version was changed after approval, so it needs a new review before export.",
+  not_submitted: "Only a version that is waiting for review can be approved or rejected.",
+  not_a_draft: "Only a draft can be submitted.",
+  not_current_version: "Someone created a newer version. Reload the report.",
+  unsupported_evidence: "Some evidence doesn't match the original AI answers, so the report can't be saved or submitted.",
+  invalid_request: "Something in the request was missing or invalid (for example, a comment shorter than 3 characters).",
+  integrity_error: "The stored content no longer matches what was reviewed.",
+};
+const STATUS_TEXT = { draft: "Draft", submitted: "Waiting for review", approved: "Approved", rejected: "Rejected" };
+const ENGINES = { aimode: "Google AI Mode", chatgpt: "ChatGPT", gemini: "Gemini" };
+let me = null, current = null;
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+async function api(method, path, body) {
+  const r = await fetch(path, { method, headers: { "Authorization": "Bearer " + localStorage.getItem("token"),
+    ...(body ? { "Content-Type": "application/json" } : {}) }, body: body ? JSON.stringify(body) : undefined });
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) {
+    const e = data.error || {};
+    const err = new Error(ERRORS[e.code] || e.message || ("HTTP " + r.status));
+    err.status = r.status; err.code = e.code; err.details = e.details; throw err;
+  }
+  return data;
+}
+
+// Both tokens are kept in this browser only. The server still decides the role from the token itself.
+function saveTokens() {
+  const a = $("tokA").value.trim(), r = $("tokR").value.trim();
+  if (a) localStorage.setItem("tok_analyst", a);
+  if (r) localStorage.setItem("tok_reviewer", r);
+  useRole(a ? "analyst" : "reviewer");
+}
+
+async function useRole(role) {
+  const t = localStorage.getItem("tok_" + role);
+  if (!t) { $("who").innerHTML = `<span style="color:var(--red)">No ${role} token saved yet.</span>`; return; }
+  localStorage.setItem("token", t);
+  try {
+    me = await api("GET", "/whoami");
+    if (me.role !== role) throw new Error(`That token belongs to the ${me.role} role, not ${role}.`);
+    localStorage.setItem("role", role);
+    $("who").innerHTML = `Signed in as <b>${esc(me.name)}</b>`;
+    $("signin").style.display = "none";
+    $("switcher").style.display = "flex";
+    for (const x of ["analyst", "reviewer"]) $("btn-" + x).className = x === role ? "" : "secondary";
+    current ? openReport(current.report_id) : loadReports();
+  } catch (e) {
+    localStorage.removeItem("tok_" + role);
+    $("signin").style.display = "flex"; $("switcher").style.display = "none";
+    $("who").innerHTML = `<span style="color:var(--red)">${esc(e.message)}</span>`;
+  }
+}
+
+async function demoLogin(role) {
+  const r = await fetch("/demo/login", { method: "POST", headers: { "Content-Type": "application/json" },
+                                         body: JSON.stringify({ role }) });
+  const data = await r.json();
+  if (!r.ok) { $("who").innerHTML = `<span style="color:var(--red)">${esc(data.error.message)}</span>`; return; }
+  localStorage.setItem("tok_" + role, data.token);
+  $("roleSelect").value = role;
+  await useRole(role);
+  $("switcher").style.display = "none";   // the dropdown replaces the token buttons in demo mode
+  $("demo").style.display = "flex";
+}
+
+function signOut() { ["token", "tok_analyst", "tok_reviewer", "role"].forEach(k => localStorage.removeItem(k)); location.reload(); }
+
+async function loadReports(selectId) {
+  const { reports } = await api("GET", "/reports");
+  if (!reports.length) { $("reports").innerHTML = `<div class="card muted">No reports yet. Run <code>python -m app.cli run</code>.</div>`; return; }
+  $("reports").innerHTML = reports.map(r => `
+    <div class="card report-item ${current && current.report_id === r.report_id ? "active" : ""}" onclick="openReport('${r.report_id}')">
+      <span class="badge ${r.status}">${STATUS_TEXT[r.status]}</span> <span class="muted">v${r.version}</span><br>
+      <span class="muted">${esc(r.created_at.replace("T", " ").slice(0, 16))} &middot; ${esc(r.execution_mode)}</span><br>
+      <span class="muted" style="font-size:11px">${r.report_id.slice(0, 8)}</span>
+    </div>`).join("");
+  if (selectId) openReport(selectId);
+}
+
+async function openReport(id, message) {
+  current = await api("GET", `/reports/${id}`);
+  render(message);
+  loadReports();
+}
+
+function nextStepText(status, role) {
+  if (status === "draft") return role === "analyst" ? "Check the findings, add notes if needed, then submit it for review." : "The analyst hasn't submitted this version yet.";
+  if (status === "submitted") return role === "reviewer" ? "Read the findings and evidence, then approve or reject with a comment." : "Waiting for the reviewer. Editing now creates a new version.";
+  if (status === "approved") return "This version can be exported. Any edit creates a new version that needs a new review.";
+  return "Rejected. The analyst can edit it, which creates a new version, and submit again.";
+}
+
+function render(message) {
+  const r = current, c = r.content, s = c.scores, status = r.status, role = me.role;
+  const frac = (x) => x ? `${x.count} of ${x.of}` : "-";
+  const eng = (scope, e) => s.by_scope_engine[`${scope}|${e}`] || {};
+  const rows = Object.keys(ENGINES).map(e => `<tr><td>${ENGINES[e]}</td>
+      <td class="num">${frac(eng("unbranded", e).mentioned)}</td>
+      <td class="num">${frac(eng("branded", e).mentioned)}</td>
+      <td class="num">${frac(eng("branded", e).recommended)}</td>
+      <td class="num">${frac(eng("branded", e).negative)}</td>
+      <td class="num">${frac(eng("branded", e).entity_confusion)}</td>
+      <td class="num">${eng("branded", e).mean_score ?? "-"}</td></tr>`).join("");
+  const latest = r.shown_version === r.current_version;
+
+  const diags = c.diagnostics.map(d => `
+    <div class="card diag">
+      <h3>${esc(d.id)}. ${esc(d.title)}</h3>
+      <div>${esc(d.pattern)}</div>
+      <div class="label">Possible reason</div><div>${esc(d.possible_explanation)}</div>
+      <div class="label">How to check it</div><div>${esc(d.test_evidence)}</div>
+      <details><summary>Show the evidence (${d.evidence.length} quotes from the AI answers)</summary>
+        ${d.evidence.map(ev => `<blockquote>${esc(ev.excerpt)}
+          <span class="src">${ENGINES[ev.engine] || esc(ev.engine)} &middot; question ${esc((ev.prompt_id || "").slice(-3))}
+          ${ev.note ? "&middot; " + esc(ev.note) : ""} &middot; answer ${esc(ev.response_id.slice(0, 8))}</span></blockquote>`).join("")}
+      </details>
+    </div>`).join("");
+
+  const remedies = c.remedies.map(m => `
+    <div class="card remedy">
+      <h3>Priority ${m.priority}: ${esc(m.problem)}</h3>
+      <div class="label">What to do</div><div>${esc(m.action)}</div>
+      <div class="grid2">
+        <div class="kv"><b>Expected benefit</b>${esc(m.expected_benefit)}</div>
+        <div class="kv"><b>Effort</b>${esc(m.effort)}</div>
+        <div class="kv"><b>How sure are we</b>${esc(m.uncertainty)}</div>
+        <div class="kv"><b>How to measure it worked</b>${esc(m.validation)}</div>
+      </div>
+      <div class="muted" style="margin-top:8px">Based on finding ${esc(m.diagnostic_id)}. ${esc(m.priority_rationale || "")}</div>
+    </div>`).join("");
+
+  const history = r.versions.slice().reverse().map(v => `
+    <div><span class="badge ${v.status}">${STATUS_TEXT[v.status]}</span> <b>v${v.version}</b>
+      <span class="muted">created by ${esc(v.created_by)} ${v.based_on ? "(edited from v" + v.based_on + ")" : ""}
+      ${v.submitted_by ? "&middot; submitted by " + esc(v.submitted_by) : ""}</span>
+      ${v.decisions.map(d => `<div class="muted" style="border:0;padding:2px 0 0 12px">&rarr; ${d.decision} by ${esc(d.reviewer)}: &ldquo;${esc(d.comment)}&rdquo; (${esc(d.decided_at.replace("T", " ").slice(0, 16))})</div>`).join("")}
+      ${v.version !== r.shown_version ? `<button class="secondary" style="padding:2px 8px;font-size:12px" onclick="openVersion(${v.version})">view</button>` : ""}
+    </div>`).join("");
+
+  const analystActions = role === "analyst" && latest ? `
+    <div class="label">Analyst notes</div>
+    <textarea id="notes" placeholder="Add context for the reviewer">${esc(c.notes)}</textarea>
+    <div class="actions">
+      <button class="secondary" onclick="saveNotes()">Save notes${status !== "draft" ? " (creates a new version)" : ""}</button>
+      <button onclick="submitReport()" ${status === "draft" ? "" : "disabled"}>Submit for review</button>
+    </div>` : `<div class="label">Analyst notes</div><div>${esc(c.notes) || '<span class="muted">None</span>'}</div>`;
+  const reviewerActions = role === "reviewer" ? `
+    <div class="label">Reviewer decision</div>
+    <textarea id="comment" placeholder="Required: what did you check, or what must change?"></textarea>
+    <div class="actions">
+      <button class="green" onclick="decide('approve')" ${status === "submitted" ? "" : "disabled"}>Approve v${r.shown_version}</button>
+      <button class="red" onclick="decide('reject')" ${status === "submitted" ? "" : "disabled"}>Reject v${r.shown_version}</button>
+    </div>` : "";
+
+  $("view").innerHTML = `
+    <div class="card">
+      <div class="banner">
+        <div><div class="big">${esc(c.title)}</div>
+          <div class="muted">Report ${r.report_id.slice(0, 8)} &middot; mode: <b>${esc(c.execution_mode)}</b>
+          ${c.execution_mode === "replay" ? "(saved outputs from one real local-model run)" : ""}</div></div>
+        <div style="text-align:right"><span class="badge ${status}" style="font-size:14px">${STATUS_TEXT[status]}</span>
+          <div class="muted">Version ${r.shown_version}${latest ? " (latest)" : ` (latest is v${r.current_version})`}</div></div>
+      </div>
+      <div class="msg info">${nextStepText(status, role)}</div>
+      ${message || ""}
+      ${analystActions}
+      ${reviewerActions}
+      <div class="actions"><button class="secondary" onclick="exportReport()">Export this version</button></div>
+      <div id="exportOut"></div>
+    </div>
+
+    <section><h2>Key numbers</h2>
+      <div class="card">
+        <p class="muted" style="margin-top:0">"Unbranded" questions don't name Kasparro (e.g. "best AI visibility tools?"). "Branded" ones do. Each engine answered 25 of each.
+        The score is 0 to 100 per answer: mentioned +25, correctly identified +15, recommended +40, top of a list +10, kasparro.com cited +10, negative -30.</p>
+        <table><tr><th>Engine</th><th>Unbranded: named</th><th>Branded: named</th><th>Branded: recommended</th>
+          <th>Branded: negative</th><th>Branded: confused with another product</th><th>Branded: avg score</th></tr>${rows}</table>
+        <p class="muted">Answers analysed: ${s.overall.ok} of ${s.overall.eligible} &middot; failed: ${s.overall.failed} &middot; skipped: ${s.overall.skipped}.
+        Labels from a small local model, checked against exact quotes. "Negative" is probably overcounted (see decision note).</p>
+      </div>
+    </section>
+
+    <section><h2>What we found</h2>${diags || '<div class="card muted">No findings with supporting evidence.</div>'}</section>
+    <section><h2>What to do next</h2>${remedies}</section>
+    <section><h2>Version history</h2><div class="card timeline">${history}</div></section>`;
+}
+
+const show = (html) => openReport(current.report_id, html);
+const ok = (t) => `<div class="msg ok">${t}</div>`;
+const bad = (e) => `<div class="msg err">${esc(e.message)}${e.details && Array.isArray(e.details) ? "<br><small>" + esc(JSON.stringify(e.details).slice(0, 300)) + "</small>" : ""}</div>`;
+
+async function openVersion(v) { current = await api("GET", `/reports/${current.report_id}?version=${v}`); render(); }
+
+async function saveNotes() {
+  try {
+    const res = await api("PATCH", `/reports/${current.report_id}`, { notes: $("notes").value });
+    show(ok(res.new_version_created ? `Saved as new draft v${res.current_version}. It needs a new review.` : "Notes saved."));
+  } catch (e) { show(bad(e)); }
+}
+async function submitReport() {
+  try { await api("POST", `/reports/${current.report_id}/submit`, { version: current.current_version });
+        show(ok("Submitted. This version is now frozen and waiting for the reviewer.")); }
+  catch (e) { show(bad(e)); }
+}
+async function decide(decision) {
+  try { await api("POST", `/reports/${current.report_id}/decision`,
+                  { version: current.shown_version, decision, comment: $("comment").value });
+        show(ok(decision === "approve" ? "Approved. This version can now be exported." : "Rejected. Export is blocked for this version.")); }
+  catch (e) { show(bad(e)); }
+}
+async function exportReport() {
+  const q = current.shown_version !== current.current_version ? `?version=${current.shown_version}` : "";
+  try {
+    const data = await api("GET", `/reports/${current.report_id}/export${q}`);
+    const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }));
+    $("exportOut").innerHTML = ok(`Export ready: version ${data.version}${data.is_latest ? "" : " (an older approved version, not the latest)"},
+      approved by ${esc(data.approval.reviewer)}. <a href="${url}" download="kasparro_report_v${data.version}.json">Download JSON</a>`);
+  } catch (e) { $("exportOut").innerHTML = bad(e); }
+}
+
+(async () => {
+  const demo = await fetch("/demo/login").then(r => r.json()).catch(() => ({ enabled: false }));
+  if (demo.enabled) {
+    $("signin").style.display = "none";
+    demoLogin(localStorage.getItem("role") || "analyst");
+  } else if (localStorage.getItem("tok_analyst") || localStorage.getItem("tok_reviewer")) {
+    useRole(localStorage.getItem("role") || "analyst");
+  }
+})();
+</script>
+</body>
+</html>

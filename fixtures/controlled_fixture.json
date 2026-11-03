@@ -1,0 +1,33 @@
+{
+  "_note": "CONTROLLED TEST FIXTURE. Synthetic records written for engineering tests. Not real engine output.",
+  "run": {"run_id": "fixture-run-001", "brand": "Kasparro"},
+  "prompts": [
+    {"prompt_id": "fixture:001", "run_id": "fixture-run-001", "text": "is kasparro a legit platform?"},
+    {"prompt_id": "fixture:002", "run_id": "fixture-run-001", "text": "what are the best AI visibility tools?"},
+    {"prompt_id": "fixture:003", "run_id": "fixture-run-001", "text": "how much does kasparro cost?"}
+  ],
+  "responses": [
+    {"response_id": "FX-R1", "run_id": "fixture-run-001", "prompt_id": "fixture:001", "engine": "chatgpt",
+     "answer_text": "Kasparro is a new AI visibility platform. I couldn't find independent evidence that Kasparro delivers measurable results. Profound is more established.",
+     "answer_markdown": "Kasparro is a new AI visibility platform. I couldn't find independent evidence that Kasparro delivers measurable results. Profound is more established.",
+     "model_version": null, "capture_status": "captured"},
+    {"response_id": "FX-R2", "run_id": "fixture-run-001", "prompt_id": "fixture:002", "engine": "gemini",
+     "answer_text": "Popular tools include Profound, Peec AI and Otterly. Each one tracks how brands appear in AI answers.",
+     "answer_markdown": "Popular tools include Profound, Peec AI and Otterly. Each one tracks how brands appear in AI answers.",
+     "model_version": "fixture-model", "capture_status": "captured"},
+    {"response_id": "FX-R3", "run_id": "fixture-run-001", "prompt_id": "fixture:003", "engine": "aimode",
+     "answer_text": "If you mean Kaspr, the LinkedIn prospecting tool, its plans start free. Kasparro pricing is not public.",
+     "answer_markdown": "If you mean Kaspr, the LinkedIn prospecting tool, its plans start free. Kasparro pricing is not public.",
+     "model_version": null, "capture_status": "captured"},
+    {"response_id": "FX-R4", "run_id": "fixture-run-001", "prompt_id": "fixture:001", "engine": "gemini",
+     "answer_text": "Kasparro is a solid choice for D2C brands that want an AI visibility audit, alongside Profound.",
+     "answer_markdown": "Kasparro is a solid choice for D2C brands that want an AI visibility audit, alongside Profound.",
+     "model_version": "fixture-model", "capture_status": "captured"}
+  ],
+  "citations": [
+    {"citation_id": "FX-C1", "response_id": "FX-R1", "prompt_id": "fixture:001", "engine": "chatgpt", "order": 1,
+     "citation_type": "inline_hyperlink", "url": "https://kasparro.com/?utm_source=chatgpt.com", "domain": "kasparro.com"},
+    {"citation_id": "FX-C2", "response_id": "FX-R1", "prompt_id": "fixture:001", "engine": "chatgpt", "order": 2,
+     "citation_type": "sources_panel", "url": "https://kasparro.com/", "domain": "kasparro.com"}
+  ]
+}

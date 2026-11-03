@@ -1,0 +1,1128 @@
+{
+  "execution_mode": "replay",
+  "model": "qwen2.5:3b",
+  "prompt_version": "prompt-v1",
+  "score_version": "score-v1",
+  "labels_version": "v1",
+  "model_quality_status": "replayed outputs of one recorded local-model run; not re-verified live",
+  "label_file_problems": [],
+  "metrics": {
+    "tuning": {
+      "cases": 6,
+      "pipeline_ok": 6,
+      "pipeline_failed": 0,
+      "pipeline_skipped": 0,
+      "pipeline": {
+        "mentioned": {
+          "tp": 5,
+          "fp": 0,
+          "fn": 0,
+          "tn": 1,
+          "n": 6,
+          "precision": 1.0,
+          "recall": 1.0,
+          "accuracy": 1.0
+        },
+        "recommended": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 2,
+          "tn": 3,
+          "n": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "accuracy": 0.5
+        },
+        "negative": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 1,
+          "tn": 4,
+          "n": 6,
+          "precision": 1.0,
+          "recall": 0.5,
+          "accuracy": 0.833
+        },
+        "entity_confusion": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 1,
+          "tn": 4,
+          "n": 6,
+          "precision": 1.0,
+          "recall": 0.5,
+          "accuracy": 0.833
+        }
+      },
+      "baseline": {
+        "mentioned": {
+          "tp": 5,
+          "fp": 0,
+          "fn": 0,
+          "tn": 1,
+          "n": 6,
+          "precision": 1.0,
+          "recall": 1.0,
+          "accuracy": 1.0
+        },
+        "recommended": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 1,
+          "tn": 4,
+          "n": 6,
+          "precision": 1.0,
+          "recall": 0.5,
+          "accuracy": 0.833
+        },
+        "negative": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 1,
+          "tn": 4,
+          "n": 6,
+          "precision": 1.0,
+          "recall": 0.5,
+          "accuracy": 0.833
+        },
+        "entity_confusion": {
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "tn": 4,
+          "n": 6,
+          "precision": 1.0,
+          "recall": 1.0,
+          "accuracy": 1.0
+        }
+      },
+      "baseline_all_cases": {
+        "mentioned": {
+          "tp": 5,
+          "fp": 0,
+          "fn": 0,
+          "tn": 1,
+          "n": 6,
+          "precision": 1.0,
+          "recall": 1.0,
+          "accuracy": 1.0
+        },
+        "recommended": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 1,
+          "tn": 4,
+          "n": 6,
+          "precision": 1.0,
+          "recall": 0.5,
+          "accuracy": 0.833
+        },
+        "negative": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 1,
+          "tn": 4,
+          "n": 6,
+          "precision": 1.0,
+          "recall": 0.5,
+          "accuracy": 0.833
+        },
+        "entity_confusion": {
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "tn": 4,
+          "n": 6,
+          "precision": 1.0,
+          "recall": 1.0,
+          "accuracy": 1.0
+        }
+      }
+    },
+    "final": {
+      "cases": 9,
+      "pipeline_ok": 9,
+      "pipeline_failed": 0,
+      "pipeline_skipped": 0,
+      "pipeline": {
+        "mentioned": {
+          "tp": 6,
+          "fp": 0,
+          "fn": 0,
+          "tn": 3,
+          "n": 9,
+          "precision": 1.0,
+          "recall": 1.0,
+          "accuracy": 1.0
+        },
+        "recommended": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 1,
+          "tn": 7,
+          "n": 9,
+          "precision": 0.0,
+          "recall": 0.0,
+          "accuracy": 0.778
+        },
+        "negative": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 3,
+          "tn": 4,
+          "n": 9,
+          "precision": 0.0,
+          "recall": 0.0,
+          "accuracy": 0.444
+        },
+        "entity_confusion": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 2,
+          "tn": 6,
+          "n": 9,
+          "precision": 1.0,
+          "recall": 0.333,
+          "accuracy": 0.778
+        }
+      },
+      "baseline": {
+        "mentioned": {
+          "tp": 6,
+          "fp": 1,
+          "fn": 0,
+          "tn": 2,
+          "n": 9,
+          "precision": 0.857,
+          "recall": 1.0,
+          "accuracy": 0.889
+        },
+        "recommended": {
+          "tp": 1,
+          "fp": 2,
+          "fn": 0,
+          "tn": 6,
+          "n": 9,
+          "precision": 0.333,
+          "recall": 1.0,
+          "accuracy": 0.778
+        },
+        "negative": {
+          "tp": 1,
+          "fp": 1,
+          "fn": 2,
+          "tn": 5,
+          "n": 9,
+          "precision": 0.5,
+          "recall": 0.333,
+          "accuracy": 0.667
+        },
+        "entity_confusion": {
+          "tp": 2,
+          "fp": 1,
+          "fn": 1,
+          "tn": 5,
+          "n": 9,
+          "precision": 0.667,
+          "recall": 0.667,
+          "accuracy": 0.778
+        }
+      },
+      "baseline_all_cases": {
+        "mentioned": {
+          "tp": 6,
+          "fp": 1,
+          "fn": 0,
+          "tn": 2,
+          "n": 9,
+          "precision": 0.857,
+          "recall": 1.0,
+          "accuracy": 0.889
+        },
+        "recommended": {
+          "tp": 1,
+          "fp": 2,
+          "fn": 0,
+          "tn": 6,
+          "n": 9,
+          "precision": 0.333,
+          "recall": 1.0,
+          "accuracy": 0.778
+        },
+        "negative": {
+          "tp": 1,
+          "fp": 1,
+          "fn": 2,
+          "tn": 5,
+          "n": 9,
+          "precision": 0.5,
+          "recall": 0.333,
+          "accuracy": 0.667
+        },
+        "entity_confusion": {
+          "tp": 2,
+          "fp": 1,
+          "fn": 1,
+          "tn": 5,
+          "n": 9,
+          "precision": 0.667,
+          "recall": 0.667,
+          "accuracy": 0.778
+        }
+      }
+    },
+    "all": {
+      "cases": 15,
+      "pipeline_ok": 15,
+      "pipeline_failed": 0,
+      "pipeline_skipped": 0,
+      "pipeline": {
+        "mentioned": {
+          "tp": 11,
+          "fp": 0,
+          "fn": 0,
+          "tn": 4,
+          "n": 15,
+          "precision": 1.0,
+          "recall": 1.0,
+          "accuracy": 1.0
+        },
+        "recommended": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 3,
+          "tn": 10,
+          "n": 15,
+          "precision": 0.0,
+          "recall": 0.0,
+          "accuracy": 0.667
+        },
+        "negative": {
+          "tp": 1,
+          "fp": 2,
+          "fn": 4,
+          "tn": 8,
+          "n": 15,
+          "precision": 0.333,
+          "recall": 0.2,
+          "accuracy": 0.6
+        },
+        "entity_confusion": {
+          "tp": 2,
+          "fp": 0,
+          "fn": 3,
+          "tn": 10,
+          "n": 15,
+          "precision": 1.0,
+          "recall": 0.4,
+          "accuracy": 0.8
+        }
+      },
+      "baseline": {
+        "mentioned": {
+          "tp": 11,
+          "fp": 1,
+          "fn": 0,
+          "tn": 3,
+          "n": 15,
+          "precision": 0.917,
+          "recall": 1.0,
+          "accuracy": 0.933
+        },
+        "recommended": {
+          "tp": 2,
+          "fp": 2,
+          "fn": 1,
+          "tn": 10,
+          "n": 15,
+          "precision": 0.5,
+          "recall": 0.667,
+          "accuracy": 0.8
+        },
+        "negative": {
+          "tp": 2,
+          "fp": 1,
+          "fn": 3,
+          "tn": 9,
+          "n": 15,
+          "precision": 0.667,
+          "recall": 0.4,
+          "accuracy": 0.733
+        },
+        "entity_confusion": {
+          "tp": 4,
+          "fp": 1,
+          "fn": 1,
+          "tn": 9,
+          "n": 15,
+          "precision": 0.8,
+          "recall": 0.8,
+          "accuracy": 0.867
+        }
+      },
+      "baseline_all_cases": {
+        "mentioned": {
+          "tp": 11,
+          "fp": 1,
+          "fn": 0,
+          "tn": 3,
+          "n": 15,
+          "precision": 0.917,
+          "recall": 1.0,
+          "accuracy": 0.933
+        },
+        "recommended": {
+          "tp": 2,
+          "fp": 2,
+          "fn": 1,
+          "tn": 10,
+          "n": 15,
+          "precision": 0.5,
+          "recall": 0.667,
+          "accuracy": 0.8
+        },
+        "negative": {
+          "tp": 2,
+          "fp": 1,
+          "fn": 3,
+          "tn": 9,
+          "n": 15,
+          "precision": 0.667,
+          "recall": 0.4,
+          "accuracy": 0.733
+        },
+        "entity_confusion": {
+          "tp": 4,
+          "fp": 1,
+          "fn": 1,
+          "tn": 9,
+          "n": 15,
+          "precision": 0.8,
+          "recall": 0.8,
+          "accuracy": 0.867
+        }
+      }
+    }
+  },
+  "cases": [
+    {
+      "case_id": "C01",
+      "split": "tuning",
+      "engine": "aimode",
+      "response_id": "a3fdd8bb-bcd9-4608-9786-ad4b3a2c7dc2",
+      "synthetic": false,
+      "expected": {
+        "mentioned": true,
+        "recommended": false,
+        "negative": true,
+        "entity_confusion": false
+      },
+      "status": "ok",
+      "reason": null,
+      "pipeline": {
+        "absent": false,
+        "mentioned": true,
+        "recommended": false,
+        "negative": true,
+        "entity_confusion": false,
+        "recommendation_position": null,
+        "competitors": [
+          "G2",
+          "Capterra"
+        ]
+      },
+      "baseline": {
+        "mentioned": true,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": false
+      },
+      "guard_notes": [],
+      "score": 10.0,
+      "score_check": {
+        "pipeline": 10.0,
+        "reference": 10,
+        "match": true,
+        "score_from_expected_labels": 10
+      },
+      "competitors": null
+    },
+    {
+      "case_id": "C02",
+      "split": "tuning",
+      "engine": "chatgpt",
+      "response_id": "42e35106-67bf-48c8-aaca-4e8ccf910e77",
+      "synthetic": false,
+      "expected": {
+        "mentioned": true,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": true
+      },
+      "status": "ok",
+      "reason": null,
+      "pipeline": {
+        "absent": false,
+        "mentioned": true,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": true,
+        "recommendation_position": null,
+        "competitors": []
+      },
+      "baseline": {
+        "mentioned": true,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": true
+      },
+      "guard_notes": [],
+      "score": 25.0,
+      "score_check": {
+        "pipeline": 25.0,
+        "reference": 25,
+        "match": true,
+        "score_from_expected_labels": 25
+      },
+      "competitors": null
+    },
+    {
+      "case_id": "C03",
+      "split": "tuning",
+      "engine": "chatgpt",
+      "response_id": "65d83d99-a531-4149-bdc6-5dff9284e6f4",
+      "synthetic": false,
+      "expected": {
+        "mentioned": true,
+        "recommended": true,
+        "negative": true,
+        "entity_confusion": false
+      },
+      "status": "ok",
+      "reason": null,
+      "pipeline": {
+        "absent": false,
+        "mentioned": true,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": false,
+        "recommendation_position": null,
+        "competitors": [
+          "AthenaHQ",
+          "Profound",
+          "Peec AI",
+          "Scrunch AI",
+          "Goodie AI",
+          "Otterly"
+        ]
+      },
+      "baseline": {
+        "mentioned": true,
+        "recommended": false,
+        "negative": true,
+        "entity_confusion": false
+      },
+      "guard_notes": [
+        "negative: dropped, evidence quote not found verbatim in answer"
+      ],
+      "score": 50.0,
+      "score_check": {
+        "pipeline": 50.0,
+        "reference": 50,
+        "match": true,
+        "score_from_expected_labels": 60
+      },
+      "competitors": null
+    },
+    {
+      "case_id": "C04",
+      "split": "tuning",
+      "engine": "gemini",
+      "response_id": "b064461f-7855-477d-bded-95dbb6e9562c",
+      "synthetic": false,
+      "expected": {
+        "mentioned": true,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": true
+      },
+      "status": "ok",
+      "reason": null,
+      "pipeline": {
+        "absent": false,
+        "mentioned": true,
+        "recommended": true,
+        "negative": false,
+        "entity_confusion": false,
+        "recommendation_position": 1,
+        "competitors": [
+          "Peec AI"
+        ]
+      },
+      "baseline": {
+        "mentioned": true,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": true
+      },
+      "guard_notes": [],
+      "score": 90.0,
+      "score_check": {
+        "pipeline": 90.0,
+        "reference": 90.0,
+        "match": true,
+        "score_from_expected_labels": 25
+      },
+      "competitors": null
+    },
+    {
+      "case_id": "C05",
+      "split": "tuning",
+      "engine": "gemini",
+      "response_id": "505cb278-6145-4408-95d1-f42cdce2c695",
+      "synthetic": false,
+      "expected": {
+        "mentioned": true,
+        "recommended": true,
+        "negative": false,
+        "entity_confusion": false
+      },
+      "status": "ok",
+      "reason": null,
+      "pipeline": {
+        "absent": false,
+        "mentioned": true,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": false,
+        "recommendation_position": null,
+        "competitors": [
+          "Profound"
+        ]
+      },
+      "baseline": {
+        "mentioned": true,
+        "recommended": true,
+        "negative": false,
+        "entity_confusion": false
+      },
+      "guard_notes": [
+        "negative: dropped, evidence quote not found verbatim in answer"
+      ],
+      "score": 40.0,
+      "score_check": {
+        "pipeline": 40.0,
+        "reference": 40,
+        "match": true,
+        "score_from_expected_labels": 80
+      },
+      "competitors": null
+    },
+    {
+      "case_id": "C06",
+      "split": "tuning",
+      "engine": "aimode",
+      "response_id": "b9f436b9-af39-486a-bbbe-d4692e55d6fb",
+      "synthetic": false,
+      "expected": {
+        "mentioned": false,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": false
+      },
+      "status": "ok",
+      "reason": null,
+      "pipeline": {
+        "absent": true,
+        "mentioned": false,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": false,
+        "recommendation_position": null,
+        "competitors": [
+          "Semrush (AI Visibility Toolkit)",
+          "Ahrefs Brand Radar AI",
+          "[HubSpot AEO Tool]",
+          "Peec AI",
+          "[Profound]",
+          "[SE Ranking]",
+          "[Superlines]"
+        ]
+      },
+      "baseline": {
+        "mentioned": false,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": false
+      },
+      "guard_notes": [],
+      "score": 0.0,
+      "score_check": {
+        "pipeline": 0.0,
+        "reference": 0.0,
+        "match": true,
+        "score_from_expected_labels": 0.0
+      },
+      "competitors": {
+        "must_include": [
+          "Semrush",
+          "Ahrefs",
+          "Peec AI"
+        ],
+        "pipeline_recall": 1.0,
+        "baseline_recall": 1.0,
+        "pipeline_forbidden": []
+      }
+    },
+    {
+      "case_id": "C07",
+      "split": "final",
+      "engine": "gemini",
+      "response_id": "1fda2a12-a2df-4ab1-abd5-17b7746bc833",
+      "synthetic": false,
+      "expected": {
+        "mentioned": true,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": false
+      },
+      "status": "ok",
+      "reason": null,
+      "pipeline": {
+        "absent": false,
+        "mentioned": true,
+        "recommended": false,
+        "negative": true,
+        "entity_confusion": false,
+        "recommendation_position": null,
+        "competitors": []
+      },
+      "baseline": {
+        "mentioned": true,
+        "recommended": true,
+        "negative": true,
+        "entity_confusion": true
+      },
+      "guard_notes": [],
+      "score": 10.0,
+      "score_check": {
+        "pipeline": 10.0,
+        "reference": 10,
+        "match": true,
+        "score_from_expected_labels": 40
+      },
+      "competitors": null
+    },
+    {
+      "case_id": "C08",
+      "split": "final",
+      "engine": "aimode",
+      "response_id": "35b7cd2b-eef2-4767-84a7-c9e6aff8fcf5",
+      "synthetic": false,
+      "expected": {
+        "mentioned": true,
+        "recommended": false,
+        "negative": true,
+        "entity_confusion": false
+      },
+      "status": "ok",
+      "reason": null,
+      "pipeline": {
+        "absent": false,
+        "mentioned": true,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": false,
+        "recommendation_position": null,
+        "competitors": [
+          "Dageno AI",
+          "Analyze AI"
+        ]
+      },
+      "baseline": {
+        "mentioned": true,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": false
+      },
+      "guard_notes": [
+        "negative: dropped, evidence quote not found verbatim in answer"
+      ],
+      "score": 40.0,
+      "score_check": {
+        "pipeline": 40.0,
+        "reference": 40,
+        "match": true,
+        "score_from_expected_labels": 10
+      },
+      "competitors": null
+    },
+    {
+      "case_id": "C09",
+      "split": "final",
+      "engine": "chatgpt",
+      "response_id": "4b5b2098-bdb6-4ff7-a1a2-2587f210f444",
+      "synthetic": false,
+      "expected": {
+        "mentioned": true,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": false
+      },
+      "status": "ok",
+      "reason": null,
+      "pipeline": {
+        "absent": false,
+        "mentioned": true,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": false,
+        "recommendation_position": null,
+        "competitors": []
+      },
+      "baseline": {
+        "mentioned": true,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": false
+      },
+      "guard_notes": [
+        "negative: dropped, evidence quote not found verbatim in answer"
+      ],
+      "score": 50.0,
+      "score_check": {
+        "pipeline": 50.0,
+        "reference": 50,
+        "match": true,
+        "score_from_expected_labels": 50
+      },
+      "competitors": null
+    },
+    {
+      "case_id": "C10",
+      "split": "final",
+      "engine": "aimode",
+      "response_id": "0701bd6b-a5c3-4999-9c2a-51145cab15df",
+      "synthetic": false,
+      "expected": {
+        "mentioned": true,
+        "recommended": true,
+        "negative": false,
+        "entity_confusion": false
+      },
+      "status": "ok",
+      "reason": null,
+      "pipeline": {
+        "absent": false,
+        "mentioned": true,
+        "recommended": false,
+        "negative": true,
+        "entity_confusion": false,
+        "recommendation_position": null,
+        "competitors": [
+          "Okara",
+          "AirOps",
+          "Chosenly"
+        ]
+      },
+      "baseline": {
+        "mentioned": true,
+        "recommended": true,
+        "negative": false,
+        "entity_confusion": false
+      },
+      "guard_notes": [],
+      "score": 10.0,
+      "score_check": {
+        "pipeline": 10.0,
+        "reference": 10,
+        "match": true,
+        "score_from_expected_labels": 80
+      },
+      "competitors": null
+    },
+    {
+      "case_id": "C11",
+      "split": "final",
+      "engine": "aimode",
+      "response_id": "449f8530-b47a-411c-9bec-1b5b6e0552cb",
+      "synthetic": false,
+      "expected": {
+        "mentioned": true,
+        "recommended": false,
+        "negative": true,
+        "entity_confusion": true
+      },
+      "status": "ok",
+      "reason": null,
+      "pipeline": {
+        "absent": false,
+        "mentioned": true,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": false,
+        "recommendation_position": null,
+        "competitors": [
+          "Profound",
+          "Cairrot",
+          "Rankr"
+        ]
+      },
+      "baseline": {
+        "mentioned": true,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": false
+      },
+      "guard_notes": [
+        "negative: dropped, evidence quote not found verbatim in answer"
+      ],
+      "score": 40.0,
+      "score_check": {
+        "pipeline": 40.0,
+        "reference": 40,
+        "match": true,
+        "score_from_expected_labels": 0.0
+      },
+      "competitors": null
+    },
+    {
+      "case_id": "C12",
+      "split": "final",
+      "engine": "gemini",
+      "response_id": "8e7809fd-1b15-402f-98ec-ebc3a6eed6f9",
+      "synthetic": false,
+      "expected": {
+        "mentioned": false,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": true
+      },
+      "status": "ok",
+      "reason": null,
+      "pipeline": {
+        "absent": true,
+        "mentioned": false,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": true,
+        "recommendation_position": null,
+        "competitors": []
+      },
+      "baseline": {
+        "mentioned": false,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": true
+      },
+      "guard_notes": [
+        "negative: dropped, Kasparro not mentioned in answer"
+      ],
+      "score": 0.0,
+      "score_check": {
+        "pipeline": 0.0,
+        "reference": 0.0,
+        "match": true,
+        "score_from_expected_labels": 0.0
+      },
+      "competitors": null
+    },
+    {
+      "case_id": "C13",
+      "split": "final",
+      "engine": "chatgpt",
+      "response_id": "ee8878c5-69b1-41c4-82a0-13a83c237f2f",
+      "synthetic": false,
+      "expected": {
+        "mentioned": false,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": false
+      },
+      "status": "ok",
+      "reason": null,
+      "pipeline": {
+        "absent": true,
+        "mentioned": false,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": false,
+        "recommendation_position": null,
+        "competitors": [
+          "Profound",
+          "Peec AI",
+          "AthenaHQ",
+          "Otterly.AI",
+          "Goodie",
+          "Semrush",
+          "Ahrefs"
+        ]
+      },
+      "baseline": {
+        "mentioned": false,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": false
+      },
+      "guard_notes": [],
+      "score": 0.0,
+      "score_check": {
+        "pipeline": 0.0,
+        "reference": 0.0,
+        "match": true,
+        "score_from_expected_labels": 0.0
+      },
+      "competitors": {
+        "must_include": [
+          "Profound",
+          "Peec AI",
+          "AthenaHQ",
+          "Semrush",
+          "Ahrefs"
+        ],
+        "pipeline_recall": 1.0,
+        "baseline_recall": 1.0,
+        "pipeline_forbidden": []
+      }
+    },
+    {
+      "case_id": "E01",
+      "split": "final",
+      "engine": "synthetic",
+      "response_id": "E01",
+      "synthetic": true,
+      "expected": {
+        "mentioned": true,
+        "recommended": false,
+        "negative": true,
+        "entity_confusion": false
+      },
+      "status": "ok",
+      "reason": null,
+      "pipeline": {
+        "absent": false,
+        "mentioned": true,
+        "recommended": true,
+        "negative": false,
+        "entity_confusion": false,
+        "recommendation_position": 1,
+        "competitors": [
+          "Profound",
+          "Peec AI"
+        ]
+      },
+      "baseline": {
+        "mentioned": true,
+        "recommended": true,
+        "negative": true,
+        "entity_confusion": false
+      },
+      "guard_notes": [],
+      "score": 90.0,
+      "score_check": {
+        "pipeline": 90.0,
+        "reference": 90.0,
+        "match": true,
+        "score_from_expected_labels": 10
+      },
+      "competitors": {
+        "must_include": [
+          "Profound",
+          "Peec AI"
+        ],
+        "pipeline_recall": 1.0,
+        "baseline_recall": 1.0,
+        "pipeline_forbidden": []
+      }
+    },
+    {
+      "case_id": "E02",
+      "split": "final",
+      "engine": "synthetic",
+      "response_id": "E02",
+      "synthetic": true,
+      "expected": {
+        "mentioned": false,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": true
+      },
+      "status": "ok",
+      "reason": null,
+      "pipeline": {
+        "absent": true,
+        "mentioned": false,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": false,
+        "recommendation_position": null,
+        "competitors": []
+      },
+      "baseline": {
+        "mentioned": true,
+        "recommended": false,
+        "negative": false,
+        "entity_confusion": true
+      },
+      "guard_notes": [
+        "confusion: dropped, evidence quote not found verbatim in answer"
+      ],
+      "score": 10.0,
+      "score_check": {
+        "pipeline": 10.0,
+        "reference": 10.0,
+        "match": true,
+        "score_from_expected_labels": 10.0
+      },
+      "competitors": null
+    }
+  ],
+  "diagnostics_check": {
+    "diagnostics": [
+      {
+        "id": "D1",
+        "title": "Kasparro is absent from unbranded discovery answers",
+        "evidence_items": 3,
+        "supported": true,
+        "problems": []
+      },
+      {
+        "id": "D2",
+        "title": "Branded answers confuse Kasparro with Kaspr or cannot identify it",
+        "evidence_items": 5,
+        "supported": true,
+        "problems": []
+      },
+      {
+        "id": "D3",
+        "title": "When asked about Kasparro directly, engines rarely recommend it and often doubt it",
+        "evidence_items": 5,
+        "supported": false,
+        "problems": [
+          "D3: pattern text does not state negative = 28/75",
+          "D3: pattern text does not state recommended = 9/75"
+        ]
+      }
+    ],
+    "remedy_links_ok": {
+      "R1": true,
+      "R2": true,
+      "R3": true
+    },
+    "negative_control": {
+      "problems_found": [
+        "excerpt_not_in_response",
+        "D1.mentioned: claims 9/75, results give 0/75"
+      ],
+      "caught": true
+    },
+    "run_counts": {
+      "eligible": 150,
+      "failed": 0,
+      "failure_reasons": {},
+      "model_calls": 150,
+      "ok": 150,
+      "skipped": 0
+    }
+  }
+}

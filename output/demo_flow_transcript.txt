@@ -1,0 +1,18 @@
+GET /health                                      -> HTTP 200 {"status": "ok"}
+POST /datasets (analyst)                         -> HTTP 201 {"dataset_id": "708141b9-113a-46de-9700-b37247962502"}
+POST /datasets again (duplicate import)          -> HTTP 200 {"dataset_id": "708141b9-113a-46de-9700-b37247962502"}
+POST /analyses                                   -> HTTP 202 {"status": "queued", "analysis_id": "0eac1e43-9576-4fe9-8eff-f2cb81c1713f"}
+analysis finished                                -> completed counts={'eligible': 150, 'failed': 0, 'failure_reasons': {}, 'model_calls': 150, 'ok': 150, 'skipped': 0}
+PATCH /reports (analyst adds note)               -> HTTP 200 {"status": "draft", "current_version": 1, "analysis_id": "0eac1e43-9576-4fe9-8eff-f2cb81c1713f", "report_id": "5d2d2bf8-4e48-499c-9446-bc08cb73ccf3"}
+POST submit v1                                   -> HTTP 200 {"status": "submitted", "current_version": 1, "analysis_id": "0eac1e43-9576-4fe9-8eff-f2cb81c1713f", "report_id": "5d2d2bf8-4e48-499c-9446-bc08cb73ccf3"}
+POST decision as ANALYST (must be 403)           -> HTTP 403 {"code": "wrong_role", "message": "This action requires the reviewer role; you are analyst.", "details": null}
+POST decision reject v1 (reviewer)               -> HTTP 200 {"status": "rejected", "current_version": 1, "analysis_id": "0eac1e43-9576-4fe9-8eff-f2cb81c1713f", "report_id": "5d2d2bf8-4e48-499c-9446-bc08cb73ccf3"}
+GET export after rejection (must be 409)         -> HTTP 409 {"code": "rejected", "message": "Version 1 was rejected and cannot be exported", "details": null}
+PATCH after rejection -> new draft v2            -> HTTP 200 {"status": "draft", "current_version": 2, "analysis_id": "0eac1e43-9576-4fe9-8eff-f2cb81c1713f", "report_id": "5d2d2bf8-4e48-499c-9446-bc08cb73ccf3"}
+POST submit v2                                   -> HTTP 200 {"status": "submitted", "current_version": 2, "analysis_id": "0eac1e43-9576-4fe9-8eff-f2cb81c1713f", "report_id": "5d2d2bf8-4e48-499c-9446-bc08cb73ccf3"}
+POST decision approve v2                         -> HTTP 200 {"status": "approved", "current_version": 2, "analysis_id": "0eac1e43-9576-4fe9-8eff-f2cb81c1713f", "report_id": "5d2d2bf8-4e48-499c-9446-bc08cb73ccf3"}
+GET export (approved v2)                         -> HTTP 200 {"version": 2, "report_id": "5d2d2bf8-4e48-499c-9446-bc08cb73ccf3", "is_latest": true}
+PATCH after approval -> new draft v3             -> HTTP 200 {"status": "draft", "current_version": 3, "analysis_id": "0eac1e43-9576-4fe9-8eff-f2cb81c1713f", "report_id": "5d2d2bf8-4e48-499c-9446-bc08cb73ccf3"}
+GET export latest (must be 409 stale)            -> HTTP 409 {"code": "stale_approval", "message": "Latest version 3 is draft and has not been approved. Approval of version 2 does not cover it. Export version 2 explicitly with ?version=2.", "details": {"latest_
+GET export ?version=2 (explicit old approval)    -> HTTP 200 {"version": 2, "report_id": "5d2d2bf8-4e48-499c-9446-bc08cb73ccf3", "is_latest": false}
+approved export written to output/approved_report_export.json
